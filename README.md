@@ -2,6 +2,8 @@
 
 This repository provides a set of automation scripts to facilitate the installation and configuration of the ELK stack (Elasticsearch, Kibana, Fleet Server) for log management and analysis. This script will download all the prerequisites, install and configure the ELK stack, start and enable the ELK stack services, and configure them.
 
+![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+
 ## Table of Contents
 
 - [Introduction](#-introduction)
