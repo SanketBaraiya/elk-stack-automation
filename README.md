@@ -66,17 +66,12 @@ To install and configure the ELK stack, follow these steps:
    wget https://raw.githubusercontent.com/SanketBaraiya/elk-stack-automation/main/elk_stack.sh
    wget https://raw.githubusercontent.com/SanketBaraiya/elk-stack-automation/main/configure-fleet.py
    ```
-3. Navigate to the cloned repository:
-
-   ```shell
-   cd elk-stack-automation
-   ```
-4. Give the required permissions to the script:
+3. Give the required permissions to the script:
 
    ```shell
    chmod 744 elk_stack.sh
    ```
-5. Run the script:
+4. Run the script:
 
    ```shell
    bash elk_stack.sh [IP-ADDR]
