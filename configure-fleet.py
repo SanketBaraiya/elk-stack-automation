@@ -1,14 +1,18 @@
+import os
+import sys
+import time
+import subprocess
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-import subprocess
-import time
-import os
-import sys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 IP_ADDR = str(sys.argv[1])
 PASS = str(sys.argv[2])
+
 options = Options()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
@@ -16,12 +20,14 @@ options.add_argument('--disable-dev-shm-usage')
 options.add_argument('ignore-certificate-errors')
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 driver.get(f"https://{IP_ADDR}:5601/")
-time.sleep(15)
-driver.find_element("xpath", '//*[@data-test-subj="loginUsername"]').send_keys("elastic")
+
+userNameField = WebDriverWait(driver, 15).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="loginUsername"]'))
+userNameField.send_keys("elastic")
 driver.find_element("xpath", '//*[@data-test-subj="loginPassword"]').send_keys(PASS)
 driver.find_element("xpath", '//*[@data-test-subj="loginSubmit"]').click()
-time.sleep(50)
-driver.find_element("xpath", '//*[@data-test-subj="skipWelcomeScreen"]').click() #Explore own
+
+skipWelcomeScreenElement = WebDriverWait(driver, 50).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="skipWelcomeScreen"]'))
+skipWelcomeScreenElement.click() #Explore own
 time.sleep(10)
 driver.find_element("xpath", '//*[@data-test-subj="toggleNavButton"]').click() #Navbar
 time.sleep(5)
