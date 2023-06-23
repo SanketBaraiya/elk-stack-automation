@@ -28,18 +28,23 @@ driver.find_element("xpath", '//*[@data-test-subj="loginSubmit"]').click()
 
 skipWelcomeScreenElement = WebDriverWait(driver, 50).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="skipWelcomeScreen"]'))
 skipWelcomeScreenElement.click() #Explore own
-time.sleep(10)
-driver.find_element("xpath", '//*[@data-test-subj="toggleNavButton"]').click() #Navbar
-time.sleep(5)
-driver.find_element("xpath", '//span[@title="Fleet"]').click() 	#Fleet
-time.sleep(2)
-driver.find_element("xpath", '//*[@data-test-subj="fleet-settings-tab"]').click() 	#Settings
-time.sleep(10)
-driver.find_element("xpath", '//*[@data-test-subj="editOutputBtn"]').click() #edit icon
-time.sleep(5)
-driver.find_element("xpath", '//input[@placeholder="Specify host URL"]').clear() #Hosts
+
+toggleNavButtonElement = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="toggleNavButton"]'))
+toggleNavButtonElement.click() #Navbar
+
+fleetElement = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(By.XPATH, '//span[@title="Fleet"]'))
+fleetElement.click() 	#Fleet
+
+fleetSettingsTabElement = WebDriverWait(driver, 2).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="fleet-settings-tab"]'))
+fleetSettingsTabElement.click() 	#Settings
+
+editOutputBtnElement = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="editOutputBtn"]'))
+editOutputBtnElement.click() #edit icon
+
+specifyHostURLElement = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(By.XPATH, '//input[@placeholder="Specify host URL"]'))
+specifyHostURLElement.clear() #Hosts
 time.sleep(1)
-driver.find_element("xpath", '//input[@placeholder="Specify host URL"]').send_keys(f"https://{IP_ADDR}:9200") #Hosts
+specifyHostURLElement.send_keys(f"https://{IP_ADDR}:9200") #Hosts
 SSL_FINGERPRINT = subprocess.getoutput('cat SSL_FINGERPRINT')
 SSL_KEY= f"""ssl:
   certificate authorities:
@@ -47,27 +52,43 @@ SSL_KEY= f"""ssl:
   {SSL_FINGERPRINT}
 """
 time.sleep(5)
-driver.find_element("xpath", '//*[@aria-label="YAML Code Editor"]').send_keys(SSL_KEY) #YAML
-time.sleep(5)
-driver.find_element("xpath", '//*[@data-test-subj="saveApplySettingsBtn"]').click() #save
-time.sleep(5)
-driver.find_element("xpath", '//*[@data-test-subj="confirmModalConfirmButton"]').click() #confirm
-time.sleep(15)
-driver.find_element("xpath", '//*[@data-test-subj="settings.fleetServerHosts.addFleetServerHostBtn"]').click() #Fleet
-time.sleep(10)
-driver.find_element("xpath", '//*[@data-test-subj="fleetServerSetup.nameInput"]').send_keys("Fleet Server") #fleet name
-driver.find_element("xpath", '//input[@placeholder="Specify host URL"]').clear()
+
+yamlElement = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(By.XPATH, '//*[@aria-label="YAML Code Editor"]'))
+yamlElement.send_keys(SSL_KEY) #YAML
+
+saveApplySettingsElement = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="saveApplySettingsBtn"]'))
+saveApplySettingsElement.click() #save
+
+confirmModalElement = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="confirmModalConfirmButton"]'))
+confirmModalElement.click() #confirm
+
+addFleetServerHostBtn = WebDriverWait(driver, 15).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="settings.fleetServerHosts.addFleetServerHostBtn"]'))
+addFleetServerHostBtn.click() #Fleet
+
+fleetServerSetupElement = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="fleetServerSetup.nameInput"]'))
+fleetServerSetupElement.send_keys("Fleet Server") #fleet name
+
+specifyHostURLElement = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(By.XPATH, '//input[@placeholder="Specify host URL"]'))
+specifyHostURLElement.clear() #Hosts
 time.sleep(1)
-driver.find_element("xpath", '//input[@placeholder="Specify host URL"]').send_keys(f"https://{IP_ADDR}:8220") #fleet ip
-driver.find_element("xpath", '//*[@data-test-subj="generateFleetServerPolicyButton"]').click()
+specifyHostURLElement.send_keys(f"https://{IP_ADDR}:8220") #fleet ip
+
+generateFleetServerPolicyElement = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="generateFleetServerPolicyButton"]'))
+generateFleetServerPolicyElement.click()
 time.sleep(60)
-driver.find_element("xpath", '//*[@data-test-subj="euiFlyoutCloseButton"]').click()
-time.sleep(5)
-driver.find_element("xpath", '//*[@data-test-subj="fleet-agents-tab"]').click()
-time.sleep(5)
-driver.find_element("xpath", '//*[@data-test-subj="fleetServerLanding.addFleetServerButton"]').click()
-time.sleep(5)
-driver.find_element("xpath", '//*[@data-test-subj="generateFleetServerPolicyButton"]').click()
+
+euiFlyoutCloseElement = WebDriverWait(driver, 60).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="euiFlyoutCloseButton"]'))
+euiFlyoutCloseElement.click()
+
+fleetAgentsTabElement = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="fleet-agents-tab"]'))
+fleetAgentsTabElement.click()
+
+fleetServerLandingElement = WebDriverWait(driver, 5).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="fleetServerLanding.addFleetServerButton"]'))
+fleetServerLandingElement.click()
+
+generateFleetServerPolicyElement = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(By.XPATH, '//*[@data-test-subj="generateFleetServerPolicyButton"]'))
+generateFleetServerPolicyElement.click()
+
 time.sleep(30)
 FLEET = driver.find_element("css selector", "pre[class^='CommandCode']").text
 time.sleep(5)
