@@ -33,13 +33,7 @@ tput civis
 (while :; do for c in / - \\ \|; do printf "\e[1;33m\r[$c] Installing Elasticsearch Dependencies...\e[0m"; sleep .1; done; done) &
 
 #Disabling Linux Auto Update so that it doesn't interrupt the script   
-systemctl disable apt-daily.service
-sleep 2
-systemctl disable apt-daily.timer &> /dev/null
-sleep 2
-systemctl disable apt-daily-upgrade.timer &> /dev/null
-sleep 2
-systemctl disable apt-daily-upgrade.service
+systemctl stop unattended-upgrades
 sleep 2
 
 #Import the Elasticsearch PGP Key
@@ -208,13 +202,7 @@ rm ca.zip fleet-server.zip google-chrome-stable_current_amd64.deb elastic-agent-
 rm elasticsearch.conf.details kibana.conf.details
 rm -R elastic-agent-*
 apt --purge remove google-chrome-stable -y &> /dev/null
-systemctl enable apt-daily.service
-sleep 2
-systemctl enable apt-daily.timer &> /dev/null
-sleep 2
-systemctl enable apt-daily-upgrade.timer &> /dev/null
-sleep 2
-systemctl enable apt-daily-upgrade.service
+systemctl start unattended-upgrades
 sleep 2
 
 { printf "\e[1;32m\r[+] Successfully Removed Clutter.\e[0m"; kill $! && wait $!; } 2>/dev/null
